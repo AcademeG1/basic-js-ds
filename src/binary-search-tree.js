@@ -70,35 +70,35 @@ class BinarySearchTree {
   }
 
   remove(data) {
-
+    let it = this.items
+    it.splice(this.items.indexOf(data), 1)
+    for (let key in this) {
+      delete this[key]
+    }
+    this.items = ['']
+    for (let i = 0; i < it.length; i++) {
+      this.add(it[i])
+    }
   }
 
   min() {
     let next = this.rootNode;
-
     if (!next) {
       return null;
     }
-
     while (next.left) {
       next = next.left;
-    }
-
-    return next.data;
+    } return next.data;
   }
 
   max() {
     let next = this.rootNode;
-
     if (!next) {
       return null;
     }
-
     while (next.right) {
       next = next.right;
-    }
-
-    return next.data;
+    } return next.data;
   }
 }
 
