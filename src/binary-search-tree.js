@@ -8,7 +8,7 @@ const { Node } = require('../extensions/list-tree.js');
 */
 class BinarySearchTree {
   constructor () {
-    this.rootNode = undefined;
+    this.rootNode = null;
   }
 
   root() {
@@ -69,7 +69,66 @@ class BinarySearchTree {
     }
   }
 
+
   remove(data) {
+    if(this.has(data)) {
+
+      let main = null;
+      let currentNode = this.rootNode;
+      while(currentNode.data !== data) {
+        if(currentNode.data > data) {
+          main = currentNode;
+          currentNode = currentNode.left;
+          
+        } else {
+
+          main = currentNode;
+          currentNode = currentNode.right;
+
+        }
+      }
+
+      if(currentNode.left === null && currentNode.right == null) {
+        if(main.data > currentNode.data) {
+          main.left = null;
+        } else {
+          main.right = null;
+        }
+      } else if(currentNode.left === null) {
+        if(main.data > currentNode.data) {
+          main.left = currentNode.right;
+        } else {
+          main.right = currentNode.right;
+        }
+      } else if(currentNode.right === null) {
+        if(main.data > currentNode.data) {
+          main.left = currentNode.left;
+        } else {
+          main.right = currentNode.left;
+        }
+      } else {
+        let endRoots = currentNode;
+        let endRoot = currentNode.left;
+
+        while(endRoot.right) {
+          endRoots = endRoot;
+          endRoot = endRoot.right;
+        }
+
+          currentNode.data = endRoot.data;
+        
+        if(endRoot.left) {
+          endRoots.right = endRoot.left;
+        } else {
+          endRoots.right = null;
+        }
+      }
+    } else {
+
+      return false;
+    
+    }
+  
   }
 
   min() {
